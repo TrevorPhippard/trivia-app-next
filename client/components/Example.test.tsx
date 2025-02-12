@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
-import Home from "./Home";
+import Example from "./Example";
 
 function sum(a: number, b: number): number {
     return a + b;
@@ -15,7 +15,7 @@ describe("adds 1 + 2 to equal 3", () => {
 
 describe("component to render", () => {
     it('my test', () => {
-        render(<Home />);
-        expect(screen.getByText("Home")).toBeInTheDocument();
+        render(<Example />);
+        expect(screen.getByText("Example")).toBeInTheDocument();
     })
 });

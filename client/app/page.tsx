@@ -2,7 +2,6 @@
 import { redirect } from "next/navigation";
 import { addTask } from "./actions/auth";
 import prisma from '@/lib/db';
-import Home from '@/components/Home';
 
 // import { io } from 'socket.io-client';
 
@@ -20,6 +19,8 @@ export default async function Home() {
 
   if (!isAuth) {
     redirect('/signin')
+  } else {
+    redirect('/dashboard')
   }
 
   const tasks = await prisma.task.findMany()
@@ -27,7 +28,6 @@ export default async function Home() {
   // socket.emit('test')
 
   return <div className="bg-zinc-200 flex min-h-screen flex-col items-center pt-10">
-    <Home />
     <h1 className="text-3xl font-medium">All Tasks:</h1>
     <ul>
       {tasks.map((task) => (<li key={task.id}>{task.title}</li>))}
