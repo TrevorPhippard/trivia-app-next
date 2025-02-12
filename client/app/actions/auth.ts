@@ -1,6 +1,6 @@
 "use server"
-import prisma from '@/lib/db';
-import { createSession, deleteSession } from "@/lib/session";
+import prisma from '../../lib/db';
+import { createSession, deleteSession } from "../../lib/session";
 import { redirect } from "next/navigation";
 
 export async function addTask(formData: FormData) {

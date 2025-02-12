@@ -11,21 +11,15 @@ import {
 
 import Sortable from '@/components/Sortable';
 
-
-
-
-
 export default function page({ params }: { params: { id: string } }) {
   const editorId = params.id;
-  return (<>
-    <Tabs defaultValue="account" className="w-[400px]">
-
+  return (<section className="container">
+    <Tabs defaultValue="account" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="preview-tab">preview</TabsTrigger>
         <TabsTrigger value="edit-tab">edit</TabsTrigger>
         <TabsTrigger value="setting-tab">setting</TabsTrigger>
       </TabsList>
-
       <TabsContent value="preview-tab">
         <div className="card">
           {/* <Preview:data="currentSlide"></Preview:data=> */}
@@ -34,7 +28,7 @@ export default function page({ params }: { params: { id: string } }) {
       <TabsContent value="edit-tab">
         <div className="card">
           {/* <EditTab /> */}
-          <div className="card">
+          <div className="card grid">
             <Sortable />
 
           </div>
@@ -45,11 +39,11 @@ export default function page({ params }: { params: { id: string } }) {
           <header>
             <h1 className="inline-block text-2xl font-extrabold text-gray-900 tracking-tight ">  edit game: {editorId}</h1>
             <p className="mb-2">
-              Don't have an account, sign up now it's free.
+              edit game settings.
             </p>
           </header>
           <div className="space-y-2">
-            <h2>setting</h2>
+            <h2 >setting</h2>
             <div className="card">Track pts: no </div>
             <div className="card">share link: no </div>
             <div className="card">api link: no </div>
@@ -66,6 +60,6 @@ export default function page({ params }: { params: { id: string } }) {
       <hr />
       <button>Save</button><button> Back</button >
     </div >
-  </>
+  </section>
   );
 }

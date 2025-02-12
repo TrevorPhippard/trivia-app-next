@@ -1,0 +1,14 @@
+.slide{
+    color: slateblue;
+    font-weight: 900;
+    border: 1px solid slateblue;
+    border-radius: 5px;
+    padding:2px 8px;
+    background-color: aliceblue;
+}
+
+.slide:hover{
+    background-color: slateblue;
+    color: aliceblue;
+    cursor:grab;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import styles from '@/components/ui/test.module.css'
 
 const initialStateSlides = [
     {
@@ -51,7 +52,7 @@ export default function Home() {
                                     draggableId={`${todo.id}`}
                                 >
                                     {(draggableProvider) => (
-                                        <li className="bg-slate-300 p-1 rounded"
+                                        <li className={styles.slide}
                                             ref={draggableProvider.innerRef}
                                             {...draggableProvider.draggableProps}
                                             {...draggableProvider.dragHandleProps}
