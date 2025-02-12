@@ -2,6 +2,8 @@
 import { redirect } from "next/navigation";
 import { addTask } from "./actions/auth";
 import prisma from '@/lib/db';
+import Home from '@/components/Home';
+
 // import { io } from 'socket.io-client';
 
 // const socket = io('http://localhost:3001', {
@@ -25,8 +27,8 @@ export default async function Home() {
   // socket.emit('test')
 
   return <div className="bg-zinc-200 flex min-h-screen flex-col items-center pt-10">
-
-    <h1 className="text-3xl font-medium"> All Tasks:</h1>
+    <Home />
+    <h1 className="text-3xl font-medium">All Tasks:</h1>
     <ul>
       {tasks.map((task) => (<li key={task.id}>{task.title}</li>))}
     </ul>
