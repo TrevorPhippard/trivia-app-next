@@ -38,7 +38,7 @@ export default function Home() {
     return (
         <div>
             <DragDropContext onDragEnd={handleDragEnd}>
-                <h1>Slide Organizer</h1>
+                <h4>Order Slides</h4>
                 <Droppable droppableId="slides">
                     {(droppableProvider) => (
                         <ul className="grid grid-cols-1 gap-1"

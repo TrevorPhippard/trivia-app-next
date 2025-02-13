@@ -30,7 +30,7 @@ export default function page() {
             owner: 'marverick',
             trivia_name: 'buttered keyboard',
             game_id: 'i9j0k1l2',
-            bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
+            bg_img: '',
             text_colour: 'text-cyan-50',
             createdAt: '2021-09-01',
             updatedAt: '2021-09-01',
@@ -52,34 +52,43 @@ export default function page() {
             text_colour: 'text-cyan-50',
             createdAt: '2021-09-01',
             updatedAt: '2021-09-01',
-        }, {
-            id: 5,
-            owner: 'marverick',
-            trivia_name: 'buttered keyboard',
-            game_id: 'i9j0k1l2',
-            bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
-            text_colour: 'text-cyan-50',
-            createdAt: '2021-09-01',
-            updatedAt: '2021-09-01',
         }
     ]
 
+    interface gameData {
+        id: number,
+        owner: string,
+        trivia_name: string,
+        game_id: string,
+        bg_img: string,
+        text_colour: string,
+        createdAt: string,
+        updatedAt: string,
+    }
 
+
+    function topper(game: gameData) {
+        if (game.bg_img !== '') {
+            return <img className="object-cover w-full rounded-t-lg max-h-32" src={`${game.bg_img}`} />
+        } else {
+            return <div className={`w-full rounded-t-lg h-32 bg-slate-300`}></div>
+        }
+    }
 
 
     return (
-        <div className="flex  mx-auto w-9/12">
-            <div className="p-3 h-screen">
+        <div className="flex mx-0 mx-auto ">
+            <div className="p-3 h-screen gap-4 h-[90vh] overflow-y-scroll">
                 <h2 className="text-2xl	 font-bold">Games</h2>
 
 
-                <ul className="grid gap-4 grid-cols-1  md:grid-cols-2 lg:grid-cols-4 h-screen pb-200 overflow-y-scroll ">{
+                <ul className="flex flex-wrap gap-5 p-5">{
 
                     mockGames.map((game, key) => {
-                        return (<div key={key} className="transition-shadow h-fit hover:shadow-lg max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm ">
-
-                            <img className="object-cover w-full rounded-t-lg max-h-32" src={`${game.bg_img}`} />
-                            <div className="p-5  gap-5">
+                        return (<div key={key} className="mx-auto lg:m-2 transition-shadow h-fit hover:shadow-lg max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm ">
+                            {topper(game)}
+                            {/* <img className="object-cover w-full rounded-t-lg max-h-32" src={`${game.bg_img}`} /> */}
+                            <div className="p-5  ">
                                 <div>
                                     <h5 className="mb-2 text-2xl font-bold ">{game.trivia_name}</h5>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{game.createdAt}</p>

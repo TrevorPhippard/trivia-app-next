@@ -10,11 +10,13 @@ import {
 
 
 import Sortable from '@/components/Sortable';
+import Preview from "@/components/Preview";
+import QuestionCreator from "@/components/QuestionCreator";
 
 export default function page({ params }: { params: { id: string } }) {
   const editorId = params.id;
   return (<section className="container">
-    <Tabs defaultValue="account" className="w-full">
+    <Tabs defaultValue="edit-tab" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="preview-tab">preview</TabsTrigger>
         <TabsTrigger value="edit-tab">edit</TabsTrigger>
@@ -22,14 +24,18 @@ export default function page({ params }: { params: { id: string } }) {
       </TabsList>
       <TabsContent value="preview-tab">
         <div className="card">
-          {/* <Preview:data="currentSlide"></Preview:data=> */}
+          <Preview />
         </div>
       </TabsContent>
       <TabsContent value="edit-tab">
         <div className="card">
           {/* <EditTab /> */}
-          <div className="card grid">
-            <Sortable />
+          <div className="card flex gap-12">
+            <div className="w-3/12">
+              <Sortable /></div>
+            <div className="w-9/12">      <QuestionCreator /></div>
+
+
 
           </div>
         </div>
@@ -60,6 +66,6 @@ export default function page({ params }: { params: { id: string } }) {
       <hr />
       <button>Save</button><button> Back</button >
     </div >
-  </section>
+  </section >
   );
 }

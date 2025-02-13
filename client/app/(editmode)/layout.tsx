@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className="flex">
-      <aside className="w-1/6 h-screen">
+      <aside className="w-3/12 h-screen">
         <nav >
           <ul>
             <li className="flex items-center gap-3 p-3">
@@ -24,11 +24,10 @@ export default function RootLayout({
             <hr />
             <li className="p-3"><Friends /></li>
             <li className="p-3"><Messages /></li>
-
           </ul>
         </nav>
       </aside>
-      <div className="w-5/6 border-2">
+      <div className="w-9/12 border-2">
         {children}
       </div>
     </div >
