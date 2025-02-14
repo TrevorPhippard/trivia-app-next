@@ -10,7 +10,7 @@ export default function page() {
         {
             id: 0,
             owner: 'marverick',
-            trivia_name: 'buttered keyboard',
+            trivia_name: 'test trivia',
             game_id: 'a1b2c3d4',
             bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
             text_colour: 'text-cyan-50',
@@ -19,7 +19,7 @@ export default function page() {
         }, {
             id: 1,
             owner: 'marverick',
-            trivia_name: 'buttered keyboard',
+            trivia_name: 'test trivia',
             game_id: 'e5f6g7h8',
             bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
             text_colour: 'text-cyan-50',
@@ -28,7 +28,7 @@ export default function page() {
         }, {
             id: 2,
             owner: 'marverick',
-            trivia_name: 'buttered keyboard',
+            trivia_name: 'test trivia',
             game_id: 'i9j0k1l2',
             bg_img: '',
             text_colour: 'text-cyan-50',
@@ -37,7 +37,7 @@ export default function page() {
         }, {
             id: 3,
             owner: 'marverick',
-            trivia_name: 'buttered keyboard',
+            trivia_name: 'test trivia',
             game_id: 'i9j0k1l2',
             bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
             text_colour: 'text-cyan-50',
@@ -46,7 +46,7 @@ export default function page() {
         }, {
             id: 4,
             owner: 'marverick',
-            trivia_name: 'buttered keyboard',
+            trivia_name: 'test trivia',
             game_id: 'i9j0k1l2',
             bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
             text_colour: 'text-cyan-50',
@@ -77,15 +77,12 @@ export default function page() {
 
 
     return (
-        <div className="flex mx-0 mx-auto ">
-            <div className="p-3 h-screen gap-4 h-[90vh] overflow-y-scroll">
+        <div className="flex  mx-auto ">
+            <div className="p-3 gap-4">
                 <h2 className="text-2xl	 font-bold">Games</h2>
-
-
-                <ul className="flex flex-wrap gap-5 p-5">{
-
+                <ul className="flex flex-wrap gap-5 p-5 justify-center">{
                     mockGames.map((game, key) => {
-                        return (<div key={key} className="mx-auto lg:m-2 transition-shadow h-fit hover:shadow-lg max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm ">
+                        return (<div key={key} className="w-full sm:w-auto lg:m-2 transition-shadow h-fit hover:shadow-lg max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm ">
                             {topper(game)}
                             {/* <img className="object-cover w-full rounded-t-lg max-h-32" src={`${game.bg_img}`} /> */}
                             <div className="p-5  ">
@@ -102,7 +99,6 @@ export default function page() {
                             </div>
 
                         </div>)
-
                     })
                 } </ul>
 

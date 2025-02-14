@@ -26,7 +26,7 @@ const messagesArr = [
 export default function Friends() {
     return (
         <>
-            <ul className="h-50 w-full overflow-y-scroll p-2 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <ul className="w-full overflow-y-scroll p-2 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                 {messagesArr.map((game, key) => {
                     return (<li key={key} className="mb-3">
                         <strong>{game.name}: </strong><span>{game.message}</span>

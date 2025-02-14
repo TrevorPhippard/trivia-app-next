@@ -36,8 +36,6 @@ const gameData = {
             createdAt: 'Date',
             updatedAt: 'Date'
         }
-
-
     ]
 }
 
@@ -62,9 +60,10 @@ export default function Preview() {
 
                 </ul>
             </div>
-            <button> Rewind</button >
-            <button> Forward</button >
-
+            <footer className='flex gap-2 justify-between'>
+                <button className='custom-button'> Rewind</button >
+                <button className='custom-button'> Forward</button >
+            </footer>
         </div >
     )
 }

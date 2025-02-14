@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import styles from '@/components/ui/test.module.css'
+import styles from '@/components/ui/slide.module.css'
+
 
 const initialStateSlides = [
     {
@@ -19,13 +20,20 @@ const initialStateSlides = [
         show: true,
     },
 ];
+
+interface resultType {
+    destination: { index: number } | null;
+    source: { index: number };
+}
+
 export default function Home() {
 
     const [slides, setSlide] = useState(initialStateSlides);
     useEffect(() => {
         localStorage.setItem('slides', JSON.stringify(slides))
     }, [slides])
-    const handleDragEnd = (result) => {
+
+    const handleDragEnd = (result: resultType) => {
         console.log(result)
         if (!result.destination) return;
         const startIndex = result.source.index
@@ -35,6 +43,8 @@ export default function Home() {
         copyslides.splice(endIndex, 0, reorderTodo)
         setSlide(copyslides)
     }
+
+
     return (
         <div>
             <DragDropContext onDragEnd={handleDragEnd}>

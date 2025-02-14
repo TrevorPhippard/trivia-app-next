@@ -32,7 +32,7 @@ export default function QuestionCreator() {
 
     return (
         <div className='flex flex-col gap-6'>
-            <h4>Create Question</h4>
+            <h4 className='text-2xl font-bold flex gap-2'>Create Question</h4>
             <section>
                 <label htmlFor="question">Type: </label>
                 <select name="type" id="type" disabled>
@@ -40,10 +40,10 @@ export default function QuestionCreator() {
                 </select>
                 <hr />
             </section>
-            <section className="flex gap-2 items-center">
+            <section>
                 <label htmlFor="question">Question: </label>
                 <textarea
-                    className='rounded-md border border-input p-2 h-16'
+                    className='rounded-md border border-input p-2 h-16 w-full'
                     value={questionText}
                     name="question"
                     rows={4}
@@ -57,7 +57,7 @@ export default function QuestionCreator() {
                     <div className="flex gap-2 mb-6 items-center" key={k}>
                         <span>{k + 1})</span>
                         <textarea
-                            className='rounded-md border border-input p-2'
+                            className='rounded-md border border-input p-2 flex-grow'
                             placeholder="option"
                             id={`opt_${k}`}
                             value={input.choice}

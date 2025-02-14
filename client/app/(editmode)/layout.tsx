@@ -15,19 +15,24 @@ export default function RootLayout({
 }>) {
   return (
     <div className="flex">
-      <aside className="w-3/12 h-screen">
-        <nav >
+      <aside className="w-3/12 h-[100vh]">
+        <nav  >
           <ul>
-            <li className="flex items-center gap-3 p-3">
+            <li className="flex items-center gap-3 p-3  border-b-2">
               <span className="avatar  bg-cyan-500">T</span> Trevor <FaChevronDown />
             </li>
-            <hr />
-            <li className="p-3"><Friends /></li>
-            <li className="p-3"><Messages /></li>
+            <li className="p-3 ">
+              <h2 className="text-2xl font-bold flex gap-2 items-center">Friends Online <FaChevronDown /></h2>
+              <Friends />
+            </li>
+            <li className="p-3 ">
+              <h2 className="text-2xl font-bold flex gap-2 items-center">Online Chat<FaChevronDown /></h2>
+              <Messages />
+            </li>
           </ul>
         </nav>
       </aside>
-      <div className="w-9/12 border-2">
+      <div className="w-9/12 border-2  h-[100vh] overflow-y-scroll">
         {children}
       </div>
     </div >
