@@ -64,7 +64,7 @@ body {
 
 @layer base {
   * {
-    box-sizing: border-box
+    box-sizing: border-box;
     @apply border-border;
   }
   body {
@@ -74,6 +74,14 @@ body {
 
 .card {
   @apply p-4 rounded-lg border bg-card text-card-foreground shadow-sm;
+}
+
+.custom-center{
+  @apply flex gap-2 items-center
+}
+
+.custom-header {
+  @apply text-2xl font-bold
 }
 
 .custom-input {

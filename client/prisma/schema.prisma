@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
@@ -34,30 +31,33 @@ model UserAcct {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  User      User      @relation(fields: [UserId], references: [id])
+  UserId    String
   Trivia    Trivia[]
   Message   Message[]
-  User      User      @relation(fields: [id], references: [id])
 }
 
 model Trivia {
-  id         String   @id @default(cuid())
-  title      String
-  userAcctId String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  userAcct UserAcct   @relation(fields: [userAcctId], references: [id])
-  Question Question[]
+  id          Int        @id @default(autoincrement())
+  title       String
+  game_id     String     @unique
+  bg_img      String
+  text_colour String
+  sliderTime  Int
+  userAcctId  String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  userAcct    UserAcct   @relation(fields: [userAcctId], references: [id])
+  Question    Question[]
 }
 
 model Question {
   id        String   @id @default(cuid())
-  triviaId  String
+  triviaId  Int
   answer    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  trivia Trivia @relation(fields: [triviaId], references: [id])
+  trivia    Trivia   @relation(fields: [triviaId], references: [id])
 }
 
 model Room {
@@ -75,7 +75,6 @@ model Message {
   content    String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-
-  room     Room     @relation(fields: [roomId], references: [id])
-  userAcct UserAcct @relation(fields: [userAcctId], references: [id])
+  room       Room     @relation(fields: [roomId], references: [id])
+  userAcct   UserAcct @relation(fields: [userAcctId], references: [id])
 }

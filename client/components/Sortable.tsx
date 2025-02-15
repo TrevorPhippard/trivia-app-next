@@ -39,8 +39,8 @@ export default function Home() {
         const startIndex = result.source.index
         const endIndex = result.destination.index
         const copyslides = [...slides]
-        const [reorderTodo] = copyslides.splice(startIndex, 1)
-        copyslides.splice(endIndex, 0, reorderTodo)
+        const [reorderSlide] = copyslides.splice(startIndex, 1)
+        copyslides.splice(endIndex, 0, reorderSlide)
         setSlide(copyslides)
     }
 
@@ -55,11 +55,11 @@ export default function Home() {
                             ref={droppableProvider.innerRef}
                             {...droppableProvider.droppableProps}
                         >
-                            {slides.map((todo, index) => (
+                            {slides.map((slide, index) => (
                                 <Draggable
                                     index={index}
-                                    key={todo.id}
-                                    draggableId={`${todo.id}`}
+                                    key={slide.id}
+                                    draggableId={`${slide.id}`}
                                 >
                                     {(draggableProvider) => (
                                         <li className={styles.slide}
@@ -67,7 +67,7 @@ export default function Home() {
                                             {...draggableProvider.draggableProps}
                                             {...draggableProvider.dragHandleProps}
                                         >
-                                            {todo.title}
+                                            {slide.title}
                                         </li>
                                     )}
                                 </Draggable>

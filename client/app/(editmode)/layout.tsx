@@ -15,18 +15,18 @@ export default function RootLayout({
 }>) {
   return (
     <div className="flex">
-      <aside className="w-3/12 h-[100vh]">
+      <aside className="w-3/12">
         <nav  >
-          <ul>
-            <li className="flex items-center gap-3 p-3  border-b-2">
+          <ul className="flex flex-col">
+            <li className="custom-center p-3 border-b-2 h-2/12">
               <span className="avatar  bg-cyan-500">T</span> Trevor <FaChevronDown />
             </li>
-            <li className="p-3 ">
-              <h2 className="text-2xl font-bold flex gap-2 items-center">Friends Online <FaChevronDown /></h2>
+            <li className="p-3 h-3/12">
+              <h2 className="custom-header custom-center">Friends Online <FaChevronDown /></h2>
               <Friends />
             </li>
-            <li className="p-3 ">
-              <h2 className="text-2xl font-bold flex gap-2 items-center">Online Chat<FaChevronDown /></h2>
+            <li className="p-3 h-3/12">
+              <h2 className="custom-header custom-center">Online Chat<FaChevronDown /></h2>
               <Messages />
             </li>
           </ul>

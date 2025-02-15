@@ -31,8 +31,12 @@ CREATE TABLE "UserAcct" (
 
 -- CreateTable
 CREATE TABLE "Trivia" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
+    "game_id" TEXT NOT NULL,
+    "bg_img" TEXT NOT NULL,
+    "text_colour" TEXT NOT NULL,
+    "sliderTime" INTEGER NOT NULL,
     "userAcctId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -43,7 +47,7 @@ CREATE TABLE "Trivia" (
 -- CreateTable
 CREATE TABLE "Question" (
     "id" TEXT NOT NULL,
-    "triviaId" TEXT NOT NULL,
+    "triviaId" INTEGER NOT NULL,
     "answer" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -75,6 +79,9 @@ CREATE TABLE "Message" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Trivia_game_id_key" ON "Trivia"("game_id");
 
 -- AddForeignKey
 ALTER TABLE "UserAcct" ADD CONSTRAINT "UserAcct_id_fkey" FOREIGN KEY ("id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

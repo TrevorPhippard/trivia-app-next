@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { params: { id: string } }) {
   const gameSettingsId = params.id;
   return (
     <div>
