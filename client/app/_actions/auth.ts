@@ -24,13 +24,11 @@ export async function signInAction( email:string, password:string) {
 
     await createSession(users.id);
 
-
     redirect("/dashboard");
 
 }
 
 export async function signUpAction(username:string, email:string, password:string) {
-
     const userData = {
         username,
         email,

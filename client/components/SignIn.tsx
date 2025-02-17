@@ -3,7 +3,7 @@ import React from 'react'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { signInAction } from "@/app/actions/auth";
+import { signInAction } from "@/app/_actions/auth";
 
 const schema = z.object({
     email: z.string().email(),

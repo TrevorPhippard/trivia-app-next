@@ -3,7 +3,7 @@ import React from 'react'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { signUpAction } from "@/app/actions/auth";
+import { signUpAction } from "@/app/_actions/auth";
 
 
 

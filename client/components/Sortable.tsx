@@ -1,3 +1,6 @@
+
+"use client"
+
 import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import styles from '@/components/ui/slide.module.css'
@@ -26,7 +29,7 @@ interface resultType {
     source: { index: number };
 }
 
-export default function Home() {
+export default function Sortable() {
 
     const [slides, setSlide] = useState(initialStateSlides);
     useEffect(() => {

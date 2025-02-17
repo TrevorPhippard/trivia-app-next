@@ -34,3 +34,33 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+/**
+ * questions to look into
+ * ---------------
+ * caching?, promises/async, 
+ * context vs zustand
+ * use standard html restrictions
+ * use-react-hooks
+ * resolver/zod
+ * useActionState
+ * React Hook Form  + zod
+ * redis prisma next
+ * Trip Collaborator | Next Js | Redis Project, Redis JSON, RediSearch.
+* redis docker
+* Using Serverless Redis with Next.js
+* React Query in 100 Seconds
+* Is Next.js 15 any good? "use cache" API first look
+* STOP Making these Security Mistakes in Next.js
+* Why Everyone Loves Zustand
+* Understanding the V8 JavaScript Engine
+* tRPC, gRPC, GraphQL or REST: when to use what?
+* Next.js - What is Cold Boot Duration / Lambda Cold Start?
+* React Scan demo
+
+Cosden Solutions
+
+ */

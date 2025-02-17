@@ -3,6 +3,7 @@ import { FaRegCirclePlay, FaTrashCan, FaPenToSquare, FaGear } from "react-icons/
 import Link from 'next/link';
 import prisma from '@/lib/db';
 import Image from 'next/image';
+import { fetchGameDate } from '@/app/_actions/form'
 
 interface gameData {
     id: number,
@@ -30,7 +31,9 @@ export default async function Page() {
         }
     }
 
-    const gameData = await prisma.trivia.findMany()
+    const gameData = await fetchGameDate();
+
+    // const gameData = [] //await prisma.trivia.findMany()
 
     return (
         <div className="flex  mx-auto ">

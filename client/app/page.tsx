@@ -1,6 +1,6 @@
 // import { useEffect } from 'react'
 import { redirect } from "next/navigation";
-import { addTask } from "./actions/auth";
+import { addTask } from "./_actions/auth";
 import prisma from '@/lib/db';
 
 // import { io } from 'socket.io-client';
@@ -23,15 +23,18 @@ export default async function Home() {
     redirect('/dashboard')
   }
 
-  const tasks = await prisma.task.findMany()
+
+
+
+  // const tasks = await prisma.task.findMany()
 
   // socket.emit('test')
 
   return <div className="bg-zinc-200 flex min-h-screen flex-col items-center pt-10">
     <h1 className="text-3xl font-medium">All Tasks:</h1>
-    <ul>
+    {/* <ul>
       {tasks.map((task) => (<li key={task.id}>{task.title}</li>))}
-    </ul>
+    </ul> */}
 
     <form action={addTask} className="space-x-2">
       <input type="text" name="title" className="px-3 py-1 rounded " />
