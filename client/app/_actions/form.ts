@@ -1,5 +1,6 @@
 "use server"
 import prisma from '../../lib/db';
+import { userSchema } from '@/app/_schemas/formSchema';
 
 export async function fetchGameDate( ) {
     return await  prisma.trivia.findMany()
@@ -10,7 +11,7 @@ export async function onSubmitAction(
     data: FormData
   ): Promise<FormState> {
     const formData = Object.fromEntries(data);
-    const parsed = schema.safeParse(formData);
+    const parsed = userSchema.safeParse(formData);
   
     if (!parsed.success) {
       const fields: Record<string, string> = {};
@@ -33,7 +34,6 @@ export async function onSubmitAction(
   
     return { message: "User registered" };
   }
-  
 
 export async function getTriviaWithQuestions(triviaId: number) {
     const triviaWithQuestions = await prisma.trivia.findUnique({

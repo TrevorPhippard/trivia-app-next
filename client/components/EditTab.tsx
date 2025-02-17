@@ -5,11 +5,10 @@ import Sortable from '@/components/Sortable';
 import Answers from './Answers'
 import Link from 'next/link';
 
-import { useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useActionState } from "react";
 import { onSubmitAction } from '@/app/_actions/form';
+import { startTransition, useActionState, useEffect, useRef } from "react";
 
 import {
     Form,
@@ -29,7 +28,11 @@ interface GameData {
     // Define the structure of gameData here
 }
 
+
+
 export default function EditTab({ gameData }: { gameData: GameData }) {
+
+
     const [state, formAction] = useActionState(onSubmitAction, { message: "" })
     const defaultOptions = { options: [{ choice: '', correct: false }] };
 
@@ -51,14 +54,14 @@ export default function EditTab({ gameData }: { gameData: GameData }) {
 
             <p>-</p>
             <Form {...form}>
-
                 <form
                     className="space-y-8"
                     action={formAction}
                     ref={formRef}
                     onSubmit={(evt) => {
+                        evt.preventDefault();
                         form.handleSubmit(() => {
-                            formAction(new FormData(formRef.current!));
+                            startTransition(() => formAction(new FormData(formRef.current!)));
                         })(evt);
                     }}
                 >

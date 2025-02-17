@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const schema = z.object({
+export const userSchema = z.object({
   first: z.string().trim().min(1, {
     message: "First name is required.",
   }),
