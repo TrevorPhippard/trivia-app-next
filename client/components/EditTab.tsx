@@ -13,7 +13,7 @@ import { startTransition, useActionState, useEffect, useRef } from "react";
 import {
     Form,
     FormControl,
-    FormDescription,
+
     FormField,
     FormItem,
     FormLabel,
@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 
-import { schema } from "@/app/_schemas/auth";
+import { editSchema } from "@/app/_schemas/editSchema";
 
 interface GameData {
     // Define the structure of gameData here
@@ -36,13 +36,13 @@ export default function EditTab({ gameData }: { gameData: GameData }) {
     const [state, formAction] = useActionState(onSubmitAction, { message: "" })
     const defaultOptions = { options: [{ choice: '', correct: false }] };
 
+    console.log(gameData.Question)
 
-    const form = useForm<z.output<typeof schema>>({
-        resolver: zodResolver(schema),
+    const form = useForm<z.output<typeof editSchema>>({
+        resolver: zodResolver(editSchema),
         defaultValues: {
-            first: "",
-            last: "",
-            email: "",
+            question: "",
+            bg_img: "",
         },
     });
 
@@ -51,9 +51,8 @@ export default function EditTab({ gameData }: { gameData: GameData }) {
 
     return (
         <>
-
-            <p>-</p>
             <Form {...form}>
+
                 <form
                     className="space-y-8"
                     action={formAction}
@@ -67,6 +66,7 @@ export default function EditTab({ gameData }: { gameData: GameData }) {
                 >
                     <div className=" flex gap-12">
                         <div className="w-9/12">
+
                             <div className='flex flex-col gap-6'>
                                 <h4 className='text-2xl font-bold flex gap-2'>Create Question</h4>
                                 <section>
@@ -79,42 +79,27 @@ export default function EditTab({ gameData }: { gameData: GameData }) {
                                 <section>
                                     <FormField
                                         control={form.control}
-                                        name="first"
+                                        name="question"
                                         render={({ field }) => (
-                                            <FormItem className="w-full">
-                                                <FormLabel>First Name</FormLabel>
+                                            <FormItem className="w-full mb-2">
+                                                <FormLabel>Question</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="" {...field} />
+                                                    <Input placeholder="enter text here" {...field} />
                                                 </FormControl>
-                                                <FormDescription>Your first name.</FormDescription>
+
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
                                     <FormField
                                         control={form.control}
-                                        name="last"
+                                        name="bg_img"
                                         render={({ field }) => (
-                                            <FormItem className="w-full">
-                                                <FormLabel>Last Name</FormLabel>
+                                            <FormItem className="w-full mb-2">
+                                                <FormLabel>Background Image URL</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="" {...field} />
+                                                    <Input placeholder="enter URL here" {...field} />
                                                 </FormControl>
-                                                <FormDescription>Your last name.</FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="email"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Email</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="" {...field} />
-                                                </FormControl>
-                                                <FormDescription>Your email address.</FormDescription>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
@@ -138,10 +123,24 @@ export default function EditTab({ gameData }: { gameData: GameData }) {
                         <h4 className="text-2xl font-bold  gap-2">Save Trivia </h4>
                         <i>save changes and return to home to launch game</i>
                         <hr />
+
                         <div className="flex gap-4 py-4">
+
                             <button className="custom-button" type="submit">Save</button>
                             <Link className='custom-button' href={`/dashboard`}>Back</Link>
                         </div>
+                        {state?.message !== "" && !state.issues && (<div className="text-red-500">{state.message}</div>)}
+                        {state?.issues && (<div className="text-red-500">
+                            <ul>
+                                {state.issues.map((issue) => (
+                                    <li key={issue} className="flex gap-1">
+
+                                        {issue}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        )}
                     </div >
                 </form>
             </Form >

@@ -1,7 +1,7 @@
 
 
 "use server";
-import { schema } from "@/app/_schemas/formSchema";
+import { schema } from "@/app/_schemas/editSchema";
 
 export type FormState = {
   message: string;

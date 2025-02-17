@@ -32,7 +32,7 @@ export default function Page({ params }: {
       const result = await getTriviaWithQuestions(editorId)
 
       if (result) {
-        setFetchedGame(JSON.stringify(result, null, 2)) // Pretty print the output
+        setFetchedGame(result) // Pretty print the output
       } else {
         console.log(`Trivia with ID ${editorId} not found.`)
       }
@@ -56,7 +56,6 @@ export default function Page({ params }: {
         <div className="card">
           <div className="card flex gap-12">
             {fetchedGame && <EditTab gameData={fetchedGame} />}
-
           </div>
         </div>
       </TabsContent>
