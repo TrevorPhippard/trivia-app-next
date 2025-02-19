@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { FaChevronDown } from "react-icons/fa";
-import Friends from "@/components/Friends";
-import Messages from "@/components/Messages";
+
+import type { Metadata } from "next";
+import Chat from "@/components/Chat";
 
 export const metadata: Metadata = {
   title: "Trivia Builder",
@@ -10,30 +10,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  // brokenfeat,
 }: Readonly<{
   children: React.ReactNode;
+  brokenfeat: React.ReactNode;
 }>) {
   return (
     <div className="flex">
+
       <aside className="w-3/12">
+
         <nav  >
           <ul className="flex flex-col">
             <li className="custom-center p-3 border-b-2 h-2/12">
               <span className="avatar  bg-cyan-500">T</span> Trevor <FaChevronDown />
             </li>
-            <li className="p-3 h-3/12">
-              <h2 className="custom-header custom-center">Friends Online <FaChevronDown /></h2>
-              <Friends />
-            </li>
-            <li className="p-3 h-3/12">
-              <h2 className="custom-header custom-center">Online Chat<FaChevronDown /></h2>
-              <Messages />
-            </li>
+            <Chat />
+            {/* <li >
+            {brokenfeat}
+            </li> */}
           </ul>
         </nav>
       </aside>
-      <div className="w-9/12 border-2  h-[100vh] overflow-y-scroll">
+      <div className="">
         {children}
+
       </div>
     </div >
   );

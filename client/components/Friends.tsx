@@ -1,6 +1,5 @@
 import React from 'react'
 import SearchBar from "@/components/SearchBar";
-import { FaChevronDown } from "react-icons/fa";
 
 
 const mockFriends = [

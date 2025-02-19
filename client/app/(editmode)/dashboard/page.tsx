@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaRegCirclePlay, FaTrashCan, FaPenToSquare, FaGear } from "react-icons/fa6";
 import Link from 'next/link';
-import prisma from '@/lib/db';
-import Image from 'next/image';
+// import prisma from '@/lib/db';
+// import Image from 'next/image';
 import { fetchGameDate } from '@/app/_actions/form'
 
 interface gameData {
