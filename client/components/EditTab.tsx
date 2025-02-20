@@ -16,25 +16,10 @@ export default function EditTab() {
         defaultValues: defaultValues
     });
 
-    const { fields } = useFieldArray({
-        name: 'number',
-        control
-    })
-
-
-    // export const schema = z.object({
-    //     question:z.string({message: 'Question is required'}).min(5,'Name should have at least 5 characters'),
-    //     bg_img: z.string().trim().url('Link must be valud URL'),
-    //     answer: z.array(z.string().trim()),
-    // });
-
-    // export type Schema = z.infer<typeof schema>
-
-    // export const defaultValues:Schema = {
-    //     question:"",
-    //     bg_img:"",
-    //     answer:["",""],
-    // }
+    const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+        control, // control props comes from useForm (optional: if you are using FormProvider)
+        name: "answer", // unique name for your Field Array
+    });
 
 
     function onSubmit(data: FormData) {
@@ -78,22 +63,39 @@ export default function EditTab() {
 
             {/* -------------------- Answers -------------------- */}
 
-            <label htmlFor='answers'>answers</label>
-            <div>{
-                fields.map((field, index) => {
-                    <textarea
-                        key={field.id}
-                        className='border-2'
-                        placeholder='answers'
-                        {...register(`answers.${index}.number`, {
-                            required: {
-                                value: true,
-                                message: 'answers required'
-                            }
-                        })}
-                    />
-                })
-            }</div>
+            <div>
+                {fields.map((field, index) => {
+                    const errorForField = errors?.answer?.[index]?.text;
+                    return (
+                        <div className="flex h-16 items-center" key={field.id}>
+                            <div className="w-1/4 p-2 h-full flex justify-end items-start">
+                                <p className="text-center">Post ID: {field.postId}</p>
+                            </div>
+
+                            <div className="w-2/4 my-32">
+                                <input
+                                    {...register(`answer.${index}.text` as const)}
+                                    placeholder="Enter a text.."
+                                    defaultValue={field.text}
+                                    className="border p-2 border-gray-300"
+                                />
+                                <p>{errorForField?.message ?? <>&nbsp;</>}</p>
+                            </div>
+
+                            <div className="w-1/4 h-full flex justify-start items-start">
+                                <button
+                                    type="button"
+                                    className="custom-button"
+                                    onClick={() => remove(index)}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    );
+                })}
+
+            </div>
 
             <p className='text-red-500'>{errors.answer?.message}</p>
 
