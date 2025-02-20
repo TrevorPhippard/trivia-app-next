@@ -1,149 +1,105 @@
-"use client"
+import React from 'react'
+import { useForm, useFieldArray } from 'react-hook-form'
 
+import { Schema, schema, defaultValues } from '@/app/_schemas/question'
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import Sortable from '@/components/Sortable';
-import Answers from './Answers'
-import Link from 'next/link';
+export default function EditTab() {
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { onSubmitAction } from '@/app/_actions/form';
-import { startTransition, useActionState, useEffect, useRef } from "react";
-
-import {
-    Form,
-    FormControl,
-
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { z } from "zod";
-
-import { editSchema } from "@/app/_schemas/editSchema";
-
-interface GameData {
-    // Define the structure of gameData here
-}
-
-
-
-export default function EditTab({ gameData }: { gameData: GameData }) {
-
-
-    const [state, formAction] = useActionState(onSubmitAction, { message: "" })
-    const defaultOptions = { options: [{ choice: '', correct: false }] };
-
-    console.log(gameData.Question)
-
-    const form = useForm<z.output<typeof editSchema>>({
-        resolver: zodResolver(editSchema),
-        defaultValues: {
-            question: "",
-            bg_img: "",
-        },
+    const { register,
+        handleSubmit,
+        formState: { errors },
+        control
+    } = useForm<Schema>({
+        mode: 'all',
+        resolver: zodResolver(schema),
+        defaultValues: defaultValues
     });
 
-    const formRef = useRef<HTMLFormElement>(null);
+    const { fields } = useFieldArray({
+        name: 'number',
+        control
+    })
 
+
+    // export const schema = z.object({
+    //     question:z.string({message: 'Question is required'}).min(5,'Name should have at least 5 characters'),
+    //     bg_img: z.string().trim().url('Link must be valud URL'),
+    //     answer: z.array(z.string().trim()),
+    // });
+
+    // export type Schema = z.infer<typeof schema>
+
+    // export const defaultValues:Schema = {
+    //     question:"",
+    //     bg_img:"",
+    //     answer:["",""],
+    // }
+
+
+    function onSubmit(data: FormData) {
+        console.log("submit", data)
+    }
 
     return (
-        <>
-            <Form {...form}>
+        <form onSubmit={handleSubmit(onSubmit)}>
 
-                <form
-                    className="space-y-8"
-                    action={formAction}
-                    ref={formRef}
-                    onSubmit={(evt) => {
-                        evt.preventDefault();
-                        form.handleSubmit(() => {
-                            startTransition(() => formAction(new FormData(formRef.current!)));
-                        })(evt);
-                    }}
-                >
-                    <div className=" flex gap-12">
-                        <div className="w-9/12">
+            {/* -------------------- Question -------------------- */}
 
-                            <div className='flex flex-col gap-6'>
-                                <h4 className='text-2xl font-bold flex gap-2'>Create Question</h4>
-                                <section>
-                                    <label className="text-red-600" htmlFor="question">Type(under construction): </label>
-                                    <select name="type" id="type" disabled>
-                                        <option value="Multiple">Multiple Choice</option>
-                                    </select>
-                                    <hr />
-                                </section>
-                                <section>
-                                    <FormField
-                                        control={form.control}
-                                        name="question"
-                                        render={({ field }) => (
-                                            <FormItem className="w-full mb-2">
-                                                <FormLabel>Question</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="enter text here" {...field} />
-                                                </FormControl>
+            <label htmlFor='question'>question</label>
+            <textarea
+                className='border-2'
+                placeholder='question'
+                {...register('question', {
+                    required: {
+                        value: true,
+                        message: 'question required'
+                    }
+                })}
+            />
+            <p className='text-red-500'>{errors.question?.message}</p>
 
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="bg_img"
-                                        render={({ field }) => (
-                                            <FormItem className="w-full mb-2">
-                                                <FormLabel>Background Image URL</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="enter URL here" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+            {/* -------------------- Background Image -------------------- */}
 
-                                </section>
-                                <section className="form">
-                                    <p>Answers:</p>
-                                    <Answers opts={defaultOptions} />
-                                </section>
-                            </div>
-                        </div>
-                        <div className="w-3/12">
-                            <Sortable />
-                            <p>{JSON.stringify(gameData)}</p>
+            <label htmlFor='bg_img'>background image</label>
+            <textarea
+                className='border-2'
+                placeholder='background image'
+                {...register('bg_img', {
+                    required: {
+                        value: true,
+                        message: 'background image required'
+                    }
+                })}
+            />
+            <p className='text-red-500'>{errors.bg_img?.message}</p>
 
-                        </div>
-                    </div>
-                    <div className="pt-5 flex flex-col ">
 
-                        <h4 className="text-2xl font-bold  gap-2">Save Trivia </h4>
-                        <i>save changes and return to home to launch game</i>
-                        <hr />
 
-                        <div className="flex gap-4 py-4">
+            {/* -------------------- Answers -------------------- */}
 
-                            <button className="custom-button" type="submit">Save</button>
-                            <Link className='custom-button' href={`/dashboard`}>Back</Link>
-                        </div>
-                        {state?.message !== "" && !state.issues && (<div className="text-red-500">{state.message}</div>)}
-                        {state?.issues && (<div className="text-red-500">
-                            <ul>
-                                {state.issues.map((issue) => (
-                                    <li key={issue} className="flex gap-1">
+            <label htmlFor='answers'>answers</label>
+            <div>{
+                fields.map((field, index) => {
+                    <textarea
+                        key={field.id}
+                        className='border-2'
+                        placeholder='answers'
+                        {...register(`answers.${index}.number`, {
+                            required: {
+                                value: true,
+                                message: 'answers required'
+                            }
+                        })}
+                    />
+                })
+            }</div>
 
-                                        {issue}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        )}
-                    </div >
-                </form>
-            </Form >
-        </>
-    );
+            <p className='text-red-500'>{errors.answer?.message}</p>
+
+
+            <button className='custom-button'>Submit</button>
+
+        </form>
+    )
 }

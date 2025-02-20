@@ -15,8 +15,8 @@ type ValidationResponse = {
 /**
  * Retrieve the authentication token from cookies.
  */
-export function getTokenFromCookie(): string | undefined {
-  const cookieStore = cookies();
+export async function getTokenFromCookie(): string | undefined {
+  const cookieStore = await cookies();
   const token = cookieStore.get(AUTH_TOKEN);
 
   return token?.value;
@@ -119,7 +119,7 @@ export async function validatePermission(
     }
 
     return { success: true };
-  } catch (e) {
+  } catch {
     return {
       success: false,
       message: "Internal server Error",

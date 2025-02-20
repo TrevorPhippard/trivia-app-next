@@ -24,7 +24,7 @@ export async function onSubmitAction(
     return {
       message: "Invalid form data",
       fields,
-      issues: parsed.error.issues.map((issue) => issue.message),
+      issues: parsed.error.issues.map((issue: { message: string; }) => issue.message),
     };
   }
 

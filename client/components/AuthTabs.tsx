@@ -24,18 +24,9 @@ export default function ProfileForm() {
             </TabsList>
             <TabsContent value="sign-in">
                 <div className="card">
-                    <header>
-                        <h1 className="inline-block text-2xl font-extrabold text-gray-900 tracking-tight">Sign In</h1>
-                        <p className="mb-2">
-                            Sign in and start building
-                        </p>
-                    </header>
-                    <div className="space-y-2">
-                        <SignIn />
-                    </div>
-                    <footer>
-                        <a>forget password</a>
-                    </footer>
+
+                    <SignIn />
+
                 </div>
             </TabsContent>
             <TabsContent value="sign-up">
@@ -43,7 +34,7 @@ export default function ProfileForm() {
                     <header>
                         <h1 className="inline-block text-2xl font-extrabold text-gray-900 tracking-tight ">Sign Up</h1>
                         <p className="mb-2">
-                            Don't have an account, sign up now it's free.
+                            Don&apos;t have an account, sign up now it&apos;s free.
                         </p>
                     </header>
                     <div className="space-y-2">

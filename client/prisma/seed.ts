@@ -62,7 +62,7 @@ async function seed() {
       create: {
         title: 'Trivia Game 1',
         game_id: 'game123',
-        bg_img: 'bg1.jpg',
+        bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
         text_colour: '#FFFFFF',
         sliderTime: 30,
         userAcctId: userAcct1.id,
@@ -75,7 +75,7 @@ async function seed() {
       create: {
         title: 'Trivia Game 2',
         game_id: 'game456',
-        bg_img: 'bg2.jpg',
+        bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
         text_colour: '#000000',
         sliderTime: 45,
         userAcctId: userAcct2.id,

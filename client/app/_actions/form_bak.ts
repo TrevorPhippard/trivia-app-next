@@ -1,6 +1,6 @@
 "use server"
 import prisma from '../../lib/db';
-import { editSchema } from '@/app/_schemas/editSchema';
+import { schema } from '@/app/_schemas/question';
 
 interface FormState {
   message: string;
@@ -15,35 +15,19 @@ export async function fetchGameDate( ) {
 export async function onSubmitAction(prevState: FormState,data: FormData  ): Promise<FormState> {
 
     const formData = Object.fromEntries(data);
-    const parsed = editSchema.safeParse(formData);
-  
-    if (!parsed.success) {
-      const fields: Record<string, string> = {};
-      for (const key of Object.keys(formData)) {
-        fields[key] = formData[key].toString();
-      }
-      return {
-        message: "Invalid form data",
-        fields,
-        issues: parsed.error.issues.map((issue) => issue.message),
-      };
-    }
+    const parsed = schema.safeParse(formData);
+
     console.log(parsed.data)
 
-    if (parsed.data.email.includes("a")) {
-      return {
-        message: "Invalid email",
-        fields: parsed.data,
-      };
-    }
   
     return { message: "User registered" };
   }
 
-export async function getTriviaWithQuestions(triviaId: number) {
+export async function getTriviaWithQuestions(triviaId: string | null) {
+    if(!triviaId) return false;
     const triviaWithQuestions = await prisma.trivia.findUnique({
       where: {
-        id: 1,
+        game_id: triviaId,
       },
       include: {
         Question: true, // Include all related questions

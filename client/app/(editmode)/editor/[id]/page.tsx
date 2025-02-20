@@ -15,21 +15,22 @@ import {
 import Preview from "@/components/Preview";
 // import QuestionCreator from "@/components/QuestionCreator";
 
-import { getTriviaWithQuestions } from '@/app/_actions/form'
+import { getTriviaWithQuestions } from '@/app/_actions/form_bak'
 import EditTab from '@/components/EditTab';
+import { GameData } from "@/app/_types"
 
 export default function Page({ params }: {
   params: Promise<{ id: number }>
 }) {
   const [editorId, setEditorId] = useState<number | null>(null);
 
-  const [fetchedGame, setFetchedGame] = useState<any>(null);
+  const [fetchedGame, setFetchedGame] = useState<GameData | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       const data = await params;
       setEditorId(data.id);
-      const result = await getTriviaWithQuestions(editorId)
+      const result = await getTriviaWithQuestions(editorId?.toString() || null)
 
       if (result) {
         setFetchedGame(result) // Pretty print the output
@@ -38,7 +39,7 @@ export default function Page({ params }: {
       }
     }
     fetchData();
-  }, [params]);
+  }, [editorId, params]);
 
   return (<section className="container">
     <Tabs defaultValue="edit-tab" className="w-full">
@@ -98,42 +99,3 @@ export default function Page({ params }: {
   </section >
   );
 }
-
-// const mockGameData = {
-//   id: 0,
-//   owner: 'marverick',
-//   trivia_name: 'buttered keyboard',
-//   game_id: 'a1b2c3d4',
-//   bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
-//   text_colour: 'text-cyan-50',
-//   createdAt: '2021-09-01',
-//   updatedAt: '2021-09-01',
-//   slides: [
-//     {
-//       slide_rank: 0,
-//       owner: '',
-//       trivia_id: '',
-//       category: '',
-//       type: 'select',
-//       question: 'lorem ipsum dolor sit amet consectetur adipiscing elit?',
-//       options: ['A', 'B', 'C', 'D'],
-//       answer: 'A',
-//       bgImg: 'https://flowbite.com/docs/images/blog/image-4.jpg',
-//       createdAt: 'Date',
-//       updatedAt: 'Date'
-//     },
-//     {
-//       slide_rank: 1,
-//       owner: ' ',
-//       trivia_id: ' ',
-//       category: ' ',
-//       type: 'select',
-//       question: 'lorem ipsum dolor sit amet consectetur adipiscing elit?',
-//       options: ['A', 'B', 'C', 'D'],
-//       answer: 'B',
-//       bgImg: 'https://flowbite.com/docs/images/blog/image-4.jpg',
-//       createdAt: 'Date',
-//       updatedAt: 'Date'
-//     }
-//   ]
-// }
