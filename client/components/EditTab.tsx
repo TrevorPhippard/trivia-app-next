@@ -11,7 +11,7 @@ export default function EditTab() {
         formState: { errors },
         control
     } = useForm<Schema>({
-        mode: 'all',
+        // mode: 'all',
         resolver: zodResolver(schema),
         defaultValues: defaultValues
     });
@@ -22,9 +22,10 @@ export default function EditTab() {
     });
 
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: Schema) {
         console.log("submit", data)
     }
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -69,7 +70,7 @@ export default function EditTab() {
                     return (
                         <div className="flex h-16 items-center" key={field.id}>
                             <div className="w-1/4 p-2 h-full flex justify-end items-start">
-                                <p className="text-center">Post ID: {field.postId}</p>
+                                <p className="text-center">{index + 1}</p>
                             </div>
 
                             <div className="w-2/4 my-32">
@@ -94,6 +95,18 @@ export default function EditTab() {
                         </div>
                     );
                 })}
+                <button
+                    type="button"
+                    className="block rounded-lg mx-auto bg-blue-300 hover:bg-blue-400 p-4"
+                    onClick={() =>
+                        append({
+                            postId: fields.length,
+                            text: ""
+                        })
+                    }
+                >
+                    Append
+                </button>
 
             </div>
 
