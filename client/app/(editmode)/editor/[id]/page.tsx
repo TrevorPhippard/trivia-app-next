@@ -15,7 +15,7 @@ import {
 import Preview from "@/components/Preview";
 // import QuestionCreator from "@/components/QuestionCreator";
 
-import { getTriviaWithQuestions } from '@/app/_actions/form_bak'
+import { getTriviaWithQuestions } from '@/app/_actions/formSubmit'
 import EditTab from '@/components/EditTab';
 import { GameData } from "@/app/_types"
 
@@ -56,7 +56,7 @@ export default function Page({ params }: {
       <TabsContent value="edit-tab">
         <div className="card">
           <div className="card flex gap-12">
-            {fetchedGame && <EditTab gameData={fetchedGame} />}
+            {fetchedGame && <EditTab />}
           </div>
         </div>
       </TabsContent>
