@@ -51,6 +51,8 @@ CREATE TABLE "Question" (
     "triviaId" INTEGER NOT NULL,
     "question" TEXT NOT NULL,
     "answer" TEXT NOT NULL,
+    "bg_img" TEXT NOT NULL,
+    "order" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

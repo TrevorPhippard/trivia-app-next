@@ -17,12 +17,13 @@ import Preview from "@/components/Preview";
 import { getTriviaWithQuestions } from '@/app/_actions/formSubmit'
 import EditTab from '@/components/EditTab';
 import { GameData } from "@/app/_types"
-import Sortable from '@/components/Sortable';
 
 export default function Page({ params }: {
-  params: Promise<{ id: number }>
+  params: Promise<{ id: string }>
 }) {
-  const [editorId, setEditorId] = useState<number | null>(null);
+  const [editorId, setEditorId] = useState<string>('');
+  const [gameData, setGameData] = useState<GameData>();
+
 
   const [fetchedGame, setFetchedGame] = useState<GameData | null>(null);
 
@@ -33,6 +34,8 @@ export default function Page({ params }: {
       const result = await getTriviaWithQuestions(editorId?.toString() || null)
 
       if (result) {
+        setGameData(result)
+
         setFetchedGame(result) // Pretty print the output
       } else {
         console.log(`Trivia with ID ${editorId} not found.`)
@@ -42,7 +45,9 @@ export default function Page({ params }: {
   }, [editorId, params]);
 
   return (<section className="container">
-
+    <h1 className='text-3xl mb-5 border-b-2'>Game ID: {editorId}</h1>
+    <div>
+    </div>
     <Tabs defaultValue="edit-tab" >
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="edit-tab">edit</TabsTrigger>
@@ -55,23 +60,16 @@ export default function Page({ params }: {
         </div>
       </TabsContent>
       <TabsContent value="edit-tab" className='flex'>
-        <aside className="w-2/12 card">
-          <Sortable />
-        </aside>
-        <div className="card w-10/12">
-          {fetchedGame && <EditTab />}
-        </div>
+        {fetchedGame && <EditTab id={Number(editorId)} questions={gameData?.Question[0]} />}
       </TabsContent>
       <TabsContent value="setting-tab">
         <div className="card">
           <header>
-            <h1 className="inline-block text-2xl font-extrabold text-gray-900 tracking-tight ">  edit game: {editorId}</h1>
-            <p className="mb-2">
-              edit game settings.
-            </p>
+            <h1 className="inline-block text-2xl font-extrabold text-gray-900 tracking-tight "> Play Settings</h1>
+
           </header>
           <div className="space-y-2">
-            <h2 >setting</h2>
+            <h2 >edit how the game is shared and runs</h2>
             <div className="card font-bold">
               <span>
                 Track pts:<select name="setting-track_points" id="setting-track_points">

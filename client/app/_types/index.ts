@@ -1,3 +1,15 @@
+
+export interface QuestionData {
+  id: string;
+  triviaId:number,
+  order:number,
+  question:string,
+  bg_img:string,
+  answer:string
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface GameData {
     id: number;
     title: string;
@@ -8,11 +20,7 @@ export interface GameData {
     userAcctId: string;
     createdAt: Date;
     updatedAt: Date;
-    Question: {
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        triviaId: number;
-        answer: string;
-    }[];
+    Question:QuestionData[];
 }
+
+

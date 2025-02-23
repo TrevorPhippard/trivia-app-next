@@ -57,6 +57,7 @@ model Question {
   question  String
   answer    String
   bg_img    String
+  order     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   trivia    Trivia   @relation(fields: [triviaId], references: [id])
