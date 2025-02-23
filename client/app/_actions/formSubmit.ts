@@ -5,13 +5,54 @@
 
 "use server"
 import prisma from '../../lib/db';
-import { schema as userSchema } from "@/app/_schemas/editSchema";
+import { schemaReform } from "@/app/_schemas/question";
 
-interface FormState {
-  message: string;
-  fields?: Record<string, string>;
-  issues?: string[];
+interface originalQuestionState {
+  question?: string;
+  bg_img?: string;
+  [x: string]: string | unknown;
 }
+
+function createFinishedObject(data: originalQuestionState) {
+  const finished = {
+    question: data.question,
+    bg_img: data.bg_img,
+    answers: '',
+  };
+
+  for (const key in data) {
+    if (key !== 'question' && key !== 'bg_img') {
+      finished.answers += `${key}:${data[key]},`;
+    }
+  }
+
+  return finished;
+}
+
+export async function submitToServerActions(prevState: unknown, data: FormData): Promise<unknown> {
+    const originalQuestion = Object.fromEntries(data);
+    const formData = createFinishedObject(originalQuestion);
+    const parsed = schemaReform.safeParse(formData);
+
+    // await new Promise(resolve => {setTimeout(resolve, 1000);});
+
+    if(!parsed.success){
+      return { message: 'Invalid form data' };
+    }
+
+    console.log(formData)
+  //  await prisma.question.create({
+  //     data: {
+  //       triviaId: 1,
+  //       question: 'question',
+  //       answer: 'Answer 1',
+  //     },
+  //   })
+
+    return { message: 'question submitted!' };
+}
+
+
 
 export async function fetchGameDate() {
   return await prisma.trivia.findMany()
@@ -32,34 +73,5 @@ export async function getTriviaWithQuestions(triviaId: string | null) {
 
 
 export async function onSubmitActionUserRegister(prevState: FormState, data: FormData): Promise<FormState> {
-
-  const formData = Object.fromEntries(data);
-  const parsed = userSchema.safeParse(formData);
-
-  console.log(parsed.data)
-
-  return { message: "User registered" };
-}
-
-export async function onSubmitAction(
-  prevState: FormState,
-  data: FormData
-): Promise<FormState> {
-  const formData = Object.fromEntries(data);
-  const parsed = userSchema.safeParse(formData);
-
-  if (!parsed.success) {
-    const fields: Record<string, string> = {};
-    for (const key of Object.keys(formData)) {
-      fields[key] = formData[key].toString();
-    }
-    return {
-      message: "Invalid form data",
-      fields,
-      issues: parsed.error.issues.map((issue: { message: string; }) => issue.message),
-    };
-  }
-
-
   return { message: "User registered" };
 }

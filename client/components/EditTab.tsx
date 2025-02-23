@@ -1,32 +1,40 @@
-import React from 'react'
+import { startTransition, useActionState, useRef } from "react";
+import { submitToServerActions } from '@/app/_actions/formSubmit';
+import Form from 'next/form'
 import { useForm, useFieldArray } from 'react-hook-form'
-
 import { Schema, schema, defaultValues } from '@/app/_schemas/question'
 import { zodResolver } from '@hookform/resolvers/zod';
 
+
+
 export default function EditTab() {
 
-    const { register,
-        handleSubmit,
-        formState: { errors },
-        control
-    } = useForm<Schema>({
-        // mode: 'all',
+    const [message, formAction, isPending] = useActionState(submitToServerActions, null);
+
+    const { register, handleSubmit, formState: { errors }, control } = useForm<Schema>({
+        mode: 'all',
         resolver: zodResolver(schema),
         defaultValues: defaultValues
     });
 
     const { fields, append, remove } = useFieldArray({
         control, // control props comes from useForm (optional: if you are using FormProvider)
-        name: "answer", // unique name for your Field Array
+        name: "answer", // unique name for your Field Array\
+        rules: { maxLength: 4 }
+
     });
 
-    function onSubmit(data: Schema) {
-        console.log("submit", data)
-    }
+    const formRef = useRef<HTMLFormElement>(null);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form ref={formRef}
+            action={formAction}
+            onSubmit={(evt) => {
+                evt.preventDefault();
+                handleSubmit(() => {
+                    startTransition(() => { formAction(new FormData(formRef.current!)) });
+                })(evt);
+            }}>
 
             {/* -------------------- Question -------------------- */}
 
@@ -58,11 +66,9 @@ export default function EditTab() {
             />
             <p className='text-red-500'>{errors.bg_img?.message}</p>
 
-
-
             {/* -------------------- Answers -------------------- */}
 
-            <h2 className='text-2xl'>Choices</h2>
+            <h2 className='text-1xl font-bold'>Choices (max:4)</h2>
             <div className='my-3'>
                 {fields.map((field, index) => {
                     const errorForField = errors?.answer?.[index]?.text;
@@ -97,9 +103,10 @@ export default function EditTab() {
                 <button
                     type="button"
                     className="custom-button"
+                    disabled={fields.length > 3}
                     onClick={() =>
                         append({
-                            postId: fields.length,
+                            postId: fields.length.toString(),
                             text: ""
                         })
                     }
@@ -109,11 +116,9 @@ export default function EditTab() {
 
             </div>
 
-            <p className='text-red-500'>{errors.answer?.message}</p>
 
-
-            <button className='custom-button'>Submit</button>
-
-        </form>
+            <button className="custom-button" type="submit">Submit</button>
+            <p>{isPending ? "Loading..." : message?.message}</p>
+        </Form>
     )
 }

@@ -89,7 +89,9 @@ async function seed() {
       create: {
         id: 'question1-id',
         triviaId: trivia1.id,
-        answer: 'Answer 1',
+        bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
+        question: 'Question A',
+        answer: 'answer.0.text:A,answer.1.text:B,answer.2.text:C,answer.3.text:D',
       },
     });
 
@@ -99,7 +101,9 @@ async function seed() {
       create: {
         id: 'question2-id',
         triviaId: trivia1.id,
-        answer: 'Answer 2',
+        bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
+        question: 'Question 1',
+        answer: 'answer.0.text:E,answer.1.text:F,answer.2.text:G,answer.3.text:H',
       },
     });
 
@@ -109,7 +113,9 @@ async function seed() {
       create: {
         id: 'question3-id',
         triviaId: trivia2.id,
-        answer: 'Answer A',
+        bg_img: 'https://flowbite.com/docs/images/blog/image-4.jpg',
+        question: 'Question 1',
+        answer: 'answer.0.text:I,answer.1.text:J,answer.2.text:K,answer.3.text:L',
       },
     });
 

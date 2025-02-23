@@ -26,16 +26,15 @@ export default function RootLayout({
               <span className="avatar  bg-cyan-500">T</span> Trevor <FaChevronDown />
             </li>
             <Chat />
-            {/* <li >
-            {brokenfeat}
-            </li> */}
+            {/* <li >{brokenfeat}</li> */}
           </ul>
         </nav>
       </aside>
-      <div className="">
-        {children}
 
+      <div className="w-9/12 card">
+        {children}
       </div>
+
     </div >
   );
 }

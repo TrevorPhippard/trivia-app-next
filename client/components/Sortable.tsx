@@ -49,37 +49,36 @@ export default function Sortable() {
 
 
     return (
-        <div>
-            <DragDropContext onDragEnd={handleDragEnd}>
-                <h4>Order Slides</h4>
-                <Droppable droppableId="slides">
-                    {(droppableProvider) => (
-                        <ul className="grid grid-cols-1 gap-1"
-                            ref={droppableProvider.innerRef}
-                            {...droppableProvider.droppableProps}
-                        >
-                            {slides.map((slide, index) => (
-                                <Draggable
-                                    index={index}
-                                    key={slide.id}
-                                    draggableId={`${slide.id}`}
-                                >
-                                    {(draggableProvider) => (
-                                        <li className={styles.slide}
-                                            ref={draggableProvider.innerRef}
-                                            {...draggableProvider.draggableProps}
-                                            {...draggableProvider.dragHandleProps}
-                                        >
-                                            {slide.title}
-                                        </li>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {droppableProvider.placeholder}
-                        </ul>
-                    )}
-                </Droppable>
-            </DragDropContext>
-        </div>
+        <DragDropContext onDragEnd={handleDragEnd}>
+            <h4>Order Slides</h4>
+            <Droppable droppableId="slides">
+                {(droppableProvider) => (
+                    <ul className="grid grid-cols-1 gap-1"
+                        ref={droppableProvider.innerRef}
+                        {...droppableProvider.droppableProps}
+                    >
+                        {slides.map((slide, index) => (
+                            <Draggable
+                                index={index}
+                                key={slide.id}
+                                draggableId={`${slide.id}`}
+                            >
+                                {(draggableProvider) => (
+                                    <li className={styles.slide}
+                                        ref={draggableProvider.innerRef}
+                                        {...draggableProvider.draggableProps}
+                                        {...draggableProvider.dragHandleProps}
+                                    >
+                                        {slide.title}
+                                    </li>
+                                )}
+                            </Draggable>
+                        ))}
+                        {droppableProvider.placeholder}
+                    </ul>
+                )}
+            </Droppable>
+        </DragDropContext>
+
     );
 };

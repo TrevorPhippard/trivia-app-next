@@ -54,7 +54,9 @@ model Trivia {
 model Question {
   id        String   @id @default(cuid())
   triviaId  Int
+  question  String
   answer    String
+  bg_img    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   trivia    Trivia   @relation(fields: [triviaId], references: [id])

@@ -11,13 +11,13 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 
-// import Sortable from '@/components/Sortable';
 import Preview from "@/components/Preview";
 // import QuestionCreator from "@/components/QuestionCreator";
 
 import { getTriviaWithQuestions } from '@/app/_actions/formSubmit'
 import EditTab from '@/components/EditTab';
 import { GameData } from "@/app/_types"
+import Sortable from '@/components/Sortable';
 
 export default function Page({ params }: {
   params: Promise<{ id: number }>
@@ -42,7 +42,8 @@ export default function Page({ params }: {
   }, [editorId, params]);
 
   return (<section className="container">
-    <Tabs defaultValue="edit-tab" className="w-full">
+
+    <Tabs defaultValue="edit-tab" >
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="edit-tab">edit</TabsTrigger>
         <TabsTrigger value="setting-tab">setting</TabsTrigger>
@@ -53,11 +54,12 @@ export default function Page({ params }: {
           <Preview />
         </div>
       </TabsContent>
-      <TabsContent value="edit-tab">
-        <div className="card">
-          <div className="card flex gap-12">
-            {fetchedGame && <EditTab />}
-          </div>
+      <TabsContent value="edit-tab" className='flex'>
+        <aside className="w-2/12 card">
+          <Sortable />
+        </aside>
+        <div className="card w-10/12">
+          {fetchedGame && <EditTab />}
         </div>
       </TabsContent>
       <TabsContent value="setting-tab">

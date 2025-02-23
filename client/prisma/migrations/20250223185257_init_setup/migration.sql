@@ -25,6 +25,7 @@ CREATE TABLE "UserAcct" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "UserId" TEXT NOT NULL,
 
     CONSTRAINT "UserAcct_pkey" PRIMARY KEY ("id")
 );
@@ -48,6 +49,7 @@ CREATE TABLE "Trivia" (
 CREATE TABLE "Question" (
     "id" TEXT NOT NULL,
     "triviaId" INTEGER NOT NULL,
+    "question" TEXT NOT NULL,
     "answer" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -84,7 +86,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Trivia_game_id_key" ON "Trivia"("game_id");
 
 -- AddForeignKey
-ALTER TABLE "UserAcct" ADD CONSTRAINT "UserAcct_id_fkey" FOREIGN KEY ("id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserAcct" ADD CONSTRAINT "UserAcct_UserId_fkey" FOREIGN KEY ("UserId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Trivia" ADD CONSTRAINT "Trivia_userAcctId_fkey" FOREIGN KEY ("userAcctId") REFERENCES "UserAcct"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
