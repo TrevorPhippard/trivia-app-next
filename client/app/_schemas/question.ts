@@ -27,12 +27,12 @@ export type Schema = z.infer<typeof schema>
 export const defaultValues:Schema = {
     triviaId:0,
     order:0,
-    question:"testt",
-    bg_img:"http://localhost:3000/editor/game123",
+    question:"",
+    bg_img:"",
     answer:[
-        { postId: "0", text: "A" },
-        { postId: "1", text: "B" },
-        { postId: "2", text: "C" },
-        { postId: "3", text: "D" },
+        { postId: "0", text: "" },
+        { postId: "1", text: "" },
+        { postId: "2", text: "" },
+        { postId: "3", text: "" },
     ]
 }

@@ -12,19 +12,22 @@ import ImageInput from '@/components/ImageInput';
 import AnswersList from '@/components/AnswersList';
 import { QuestionData } from "@/app/_types"
 
-export default function EditTab(game: {
+
+
+export default function EditTab(props: {
     id: number
-    questions: QuestionData | undefined
+    questions: QuestionData | undefined,
+    slideLength: number | undefined
 }) {
 
-    console.log(game.questions)
 
 
     const [message, formAction, isPending] = useActionState(submitToServerActions, null);
+
     const { register, handleSubmit, formState: { errors }, control } = useForm<Schema>({
         mode: 'all',
         resolver: zodResolver(schema),
-        defaultValues: defaultValues
+        defaultValues
     });
 
     const { fields, append, remove } = useFieldArray({
@@ -40,7 +43,7 @@ export default function EditTab(game: {
         handleSubmit(() => {
             startTransition(() => {
                 const fdata = new FormData(formRef.current!);
-                fdata.append('triviaId', String(game.id));
+                fdata.append('triviaId', String(props.id));
                 fdata.append('order', String(89));
                 formAction(fdata);
             });
@@ -50,13 +53,15 @@ export default function EditTab(game: {
     return (
         <>
             <aside className="w-2/12 card">
-                <Sortable />
+                <Sortable length={props.slideLength} />
             </aside>
             <div className="card w-10/12">
+                <p>{props.questions?.question}</p>
+
                 <Form ref={formRef} action={formAction} onSubmit={onSubmit}>
                     <QuestionInput register={register} errors={errors} />
                     <ImageInput register={register} errors={errors} />
-                    <AnswersList fields={fields} register={register} errors={errors} append={append} remove={remove} />
+                    <AnswersList register={register} errors={errors} fields={fields} append={append} remove={remove} />
                     <button className="custom-button" type="submit">Submit</button>
                     {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                     {/* @ts-expect-error */}

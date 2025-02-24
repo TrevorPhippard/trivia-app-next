@@ -5,39 +5,30 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import styles from '@/components/ui/slide.module.css'
 
+import { useMainStore } from '@/store';
 
-const initialStateSlides = [
-    {
-        id: 1,
-        title: "Slide 1",
-        show: true,
-    },
-    {
-        id: 2,
-        title: "Slide 2",
-        show: true,
-    },
-    {
-        id: 3,
-        title: "Slide 3",
-        show: true,
-    },
-];
+
+
+function generateSlides(n: number | undefined) {
+    if (!n) return [];
+    return Array.from({ length: n }, (_, i) => ({ id: i, title: `slide ${i + 1}` }));
+}
 
 interface resultType {
     destination: { index: number } | null;
     source: { index: number };
 }
 
-export default function Sortable() {
+export default function Sortable(props: { length: number | undefined }) {
+    const setSlideAction = useMainStore((state) => state.setSlide)
 
-    const [slides, setSlide] = useState(initialStateSlides);
+
+    const [slides, setSlide] = useState(() => generateSlides(props.length));
     useEffect(() => {
         localStorage.setItem('slides', JSON.stringify(slides))
     }, [slides])
 
     const handleDragEnd = (result: resultType) => {
-        console.log(result)
         if (!result.destination) return;
         const startIndex = result.source.index
         const endIndex = result.destination.index
@@ -45,12 +36,15 @@ export default function Sortable() {
         const [reorderSlide] = copyslides.splice(startIndex, 1)
         copyslides.splice(endIndex, 0, reorderSlide)
         setSlide(copyslides)
+        console.log(slides)
     }
 
+    function handleClick(event: { target: { id: string } }) {
+        setSlideAction(Number(event.target.id));
+    }
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
-            <h4>Order Slides</h4>
             <Droppable droppableId="slides">
                 {(droppableProvider) => (
                     <ul className="grid grid-cols-1 gap-1"
@@ -68,6 +62,8 @@ export default function Sortable() {
                                         ref={draggableProvider.innerRef}
                                         {...draggableProvider.draggableProps}
                                         {...draggableProvider.dragHandleProps}
+                                        onClick={handleClick}
+                                        id={'' + slide.id}
                                     >
                                         {slide.title}
                                     </li>

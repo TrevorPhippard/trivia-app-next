@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { useMainStore } from '../../../store';
+import { useMainStore } from '@/store';
 
 export default function Page({ params }: {
   params: Promise<{ id: number }>

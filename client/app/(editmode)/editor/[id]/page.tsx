@@ -17,35 +17,38 @@ import Preview from "@/components/Preview";
 import { getTriviaWithQuestions } from '@/app/_actions/formSubmit'
 import EditTab from '@/components/EditTab';
 import { GameData } from "@/app/_types"
+import { useMainStore } from '@/store';
 
 export default function Page({ params }: {
   params: Promise<{ id: string }>
 }) {
   const [editorId, setEditorId] = useState<string>('');
   const [gameData, setGameData] = useState<GameData>();
-
-
   const [fetchedGame, setFetchedGame] = useState<GameData | null>(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await params;
-      setEditorId(data.id);
-      const result = await getTriviaWithQuestions(editorId?.toString() || null)
+  const slideSelect = useMainStore((state) => state.slideSelect)
+  const setQuizData = useMainStore((state) => state.setQuizData)
 
-      if (result) {
-        setGameData(result)
-
-        setFetchedGame(result) // Pretty print the output
-      } else {
-        console.log(`Trivia with ID ${editorId} not found.`)
-      }
+  async function fetchData() {
+    const data = await params;
+    setEditorId(data.id);
+    const result = await getTriviaWithQuestions(editorId?.toString() || null)
+    if (result) {
+      setGameData(result);
+      setFetchedGame(result);
+      setQuizData(result);
+    } else {
+      console.log(`Trivia with ID ${editorId} not found.`)
     }
+  }
+
+  useEffect(() => {
+
     fetchData();
   }, [editorId, params]);
 
   return (<section className="container">
-    <h1 className='text-3xl mb-5 border-b-2'>Game ID: {editorId}</h1>
+    <h1 className='text-3xl mb-5 border-b-2'>Game ID: {editorId}, Slides:{slideSelect} </h1>
     <div>
     </div>
     <Tabs defaultValue="edit-tab" >
@@ -60,7 +63,13 @@ export default function Page({ params }: {
         </div>
       </TabsContent>
       <TabsContent value="edit-tab" className='flex'>
-        {fetchedGame && <EditTab id={Number(editorId)} questions={gameData?.Question[0]} />}
+        {fetchedGame &&
+          <EditTab
+            id={Number(gameData.id)}
+            slideLength={Number(gameData?.Question.length)}
+            questions={gameData?.Question[slideSelect]}
+          />}
+
       </TabsContent>
       <TabsContent value="setting-tab">
         <div className="card">
